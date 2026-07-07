@@ -7,19 +7,33 @@ const bcrypt = require("bcryptjs");
 const { Pool } = require("pg");
 const nodemailer = require("nodemailer");
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is required. Example: postgresql://user:password@host:5432/database");
-}
-
 const app = express();
 const rootDir = __dirname;
 const port = Number(process.env.PORT || 3000);
 const appUrl = process.env.APP_URL || `http://localhost:${port}`;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
-});
+let pool = null;
+let initPromise = null;
+
+class DatabaseUnavailableError extends Error {
+  constructor(message = "Database is not configured. Set DATABASE_URL to enable this API.") {
+    super(message);
+    this.name = "DatabaseUnavailableError";
+    this.statusCode = 503;
+  }
+}
+
+function isDatabaseUnavailableError(error) {
+  const transientNetworkCodes = new Set(["ECONNREFUSED", "ECONNRESET", "ENOTFOUND", "ETIMEDOUT"]);
+  return (
+    error instanceof DatabaseUnavailableError ||
+    error.statusCode === 503 ||
+    transientNetworkCodes.has(error.code) ||
+    /^08/.test(String(error.code || "")) ||
+    error.code === "3D000" ||
+    error.code === "28P01"
+  );
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,8 +42,32 @@ function asyncHandler(handler) {
   return (req, res, next) => Promise.resolve(handler(req, res, next)).catch(next);
 }
 
+function getPool() {
+  if (!process.env.DATABASE_URL) {
+    throw new DatabaseUnavailableError();
+  }
+  if (!pool) {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+    });
+  }
+  return pool;
+}
+
+async function ensureDatabaseReady() {
+  if (!initPromise) {
+    initPromise = initDb().catch((error) => {
+      initPromise = null;
+      throw error;
+    });
+  }
+  return initPromise;
+}
+
 async function query(text, params = []) {
-  return pool.query(text, params);
+  await ensureDatabaseReady();
+  return getPool().query(text, params);
 }
 
 async function one(text, params = []) {
@@ -48,7 +86,8 @@ async function scalarCount(tableName) {
 }
 
 async function initDb() {
-  await query(`
+  const db = getPool();
+  await db.query(`
     CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
       name TEXT NOT NULL,
@@ -133,39 +172,44 @@ async function initDb() {
     CREATE INDEX IF NOT EXISTS idx_assignment_submissions_email ON assignment_submissions (LOWER(email));
   `);
 
-  if ((await scalarCount("users")) === 0) {
+  async function countRows(tableName) {
+    const result = await db.query(`SELECT COUNT(*)::int AS count FROM ${tableName}`);
+    return result.rows[0]?.count || 0;
+  }
+
+  if ((await countRows("users")) === 0) {
     const insertUser = `
       INSERT INTO users (name, username, email, password_hash, role)
       VALUES ($1, $2, $3, $4, $5)
     `;
-    await query(insertUser, ["Mai Hương Admin", "admin", "admin@brain.edu", bcrypt.hashSync("Demo@123", 10), "admin"]);
-    await query(insertUser, ["Mai Hương Giáo viên", "maihuonggv", "maihuong@brain.edu", bcrypt.hashSync("Demo@123", 10), "teacher"]);
-    await query(insertUser, ["Mai Hương", "maihuong", "maihuong.demo@gmail.com", bcrypt.hashSync("Demo@123", 10), "student"]);
+    await db.query(insertUser, ["Mai Hương Admin", "admin", "admin@brain.edu", bcrypt.hashSync("Demo@123", 10), "admin"]);
+    await db.query(insertUser, ["Mai Hương Giáo viên", "maihuonggv", "maihuong@brain.edu", bcrypt.hashSync("Demo@123", 10), "teacher"]);
+    await db.query(insertUser, ["Mai Hương", "maihuong", "maihuong.demo@gmail.com", bcrypt.hashSync("Demo@123", 10), "student"]);
   }
 
-  if ((await scalarCount("job_posts")) === 0) {
+  if ((await countRows("job_posts")) === 0) {
     const insertJob = `
       INSERT INTO job_posts (title, type, description, tags, status)
       VALUES ($1, $2, $3, $4, $5)
     `;
-    await query(insertJob, ["Education Program Coordinator", "Full-time", "Điều phối lớp học, lịch đào tạo, tài liệu và trải nghiệm học viên cho trung tâm giáo dục.", "Planning,Communication,Office", "published"]);
-    await query(insertJob, ["Student Care Assistant", "Part-time", "Hỗ trợ học viên, tiếp nhận phản hồi, nhắc lịch học và cập nhật hồ sơ khách hàng.", "Support,CRM,Teamwork", "published"]);
-    await query(insertJob, ["HR & Admin Intern", "Internship", "Chuẩn bị hồ sơ, hỗ trợ phỏng vấn, nhập dữ liệu và theo dõi hoạt động nội bộ.", "Admin,Excel,People", "draft"]);
-    await query(insertJob, ["Training Operations Assistant", "Full-time", "Theo dõi lịch phòng, tài liệu học tập và báo cáo vận hành chương trình đào tạo.", "Reports,Schedule,Detail", "hidden"]);
+    await db.query(insertJob, ["Education Program Coordinator", "Full-time", "Điều phối lớp học, lịch đào tạo, tài liệu và trải nghiệm học viên cho trung tâm giáo dục.", "Planning,Communication,Office", "published"]);
+    await db.query(insertJob, ["Student Care Assistant", "Part-time", "Hỗ trợ học viên, tiếp nhận phản hồi, nhắc lịch học và cập nhật hồ sơ khách hàng.", "Support,CRM,Teamwork", "published"]);
+    await db.query(insertJob, ["HR & Admin Intern", "Internship", "Chuẩn bị hồ sơ, hỗ trợ phỏng vấn, nhập dữ liệu và theo dõi hoạt động nội bộ.", "Admin,Excel,People", "draft"]);
+    await db.query(insertJob, ["Training Operations Assistant", "Full-time", "Theo dõi lịch phòng, tài liệu học tập và báo cáo vận hành chương trình đào tạo.", "Reports,Schedule,Detail", "hidden"]);
   }
 
-  if ((await scalarCount("news_posts")) === 0) {
+  if ((await countRows("news_posts")) === 0) {
     const insertNews = `
       INSERT INTO news_posts (title, category, excerpt, status, featured)
       VALUES ($1, $2, $3, $4, $5)
     `;
-    await query(insertNews, ["Giáo dục kỹ năng mềm trở thành lợi thế cho sinh viên mới ra trường", "Xu hướng", "Nhiều doanh nghiệp đánh giá cao khả năng giao tiếp, tư duy tổ chức và tinh thần học hỏi bên cạnh kiến thức chuyên môn.", "published", 1]);
-    await query(insertNews, ["Lớp học kết hợp giúp tăng tính chủ động của người học", "Học tập", "Hình thức học trực tiếp kết hợp tài nguyên số giúp học viên linh hoạt hơn trong ôn tập.", "published", 0]);
-    await query(insertNews, ["Các trung tâm giáo dục chú trọng trải nghiệm học viên", "Tuyển sinh", "Dịch vụ tư vấn, chăm sóc và phản hồi nhanh đang trở thành điểm khác biệt quan trọng.", "published", 0]);
-    await query(insertNews, ["Công cụ quản lý học tập giúp tối ưu vận hành đào tạo", "Công nghệ", "Bảng dữ liệu, lịch học và báo cáo tiến độ giúp đội ngũ quản lý lớp học hiệu quả hơn.", "published", 0]);
+    await db.query(insertNews, ["Giáo dục kỹ năng mềm trở thành lợi thế cho sinh viên mới ra trường", "Xu hướng", "Nhiều doanh nghiệp đánh giá cao khả năng giao tiếp, tư duy tổ chức và tinh thần học hỏi bên cạnh kiến thức chuyên môn.", "published", 1]);
+    await db.query(insertNews, ["Lớp học kết hợp giúp tăng tính chủ động của người học", "Học tập", "Hình thức học trực tiếp kết hợp tài nguyên số giúp học viên linh hoạt hơn trong ôn tập.", "published", 0]);
+    await db.query(insertNews, ["Các trung tâm giáo dục chú trọng trải nghiệm học viên", "Tuyển sinh", "Dịch vụ tư vấn, chăm sóc và phản hồi nhanh đang trở thành điểm khác biệt quan trọng.", "published", 0]);
+    await db.query(insertNews, ["Công cụ quản lý học tập giúp tối ưu vận hành đào tạo", "Công nghệ", "Bảng dữ liệu, lịch học và báo cáo tiến độ giúp đội ngũ quản lý lớp học hiệu quả hơn.", "published", 0]);
   }
 
-  if ((await scalarCount("assignments")) === 0) {
+  if ((await countRows("assignments")) === 0) {
     const demoQuestions = [
       {
         id: crypto.randomUUID(),
@@ -190,7 +234,7 @@ async function initDb() {
         ]
       }
     ];
-    await query(`
+    await db.query(`
       INSERT INTO assignments (title, description, questions_json, status)
       VALUES ($1, $2, $3, $4)
     `, ["English Multiple-Answer Practice", "Bài tập tiếng Anh trắc nghiệm nhiều đáp án đúng.", JSON.stringify(demoQuestions), "published"]);
@@ -668,7 +712,8 @@ app.post("/api/assignments/:id/start", asyncHandler(async (req, res) => {
 }));
 
 app.post("/api/assignments/:id/submit", asyncHandler(async (req, res) => {
-  const client = await pool.connect();
+  await ensureDatabaseReady();
+  const client = await getPool().connect();
   try {
     await client.query("BEGIN");
 
@@ -729,13 +774,20 @@ app.use((error, req, res, next) => {
     next(error);
     return;
   }
+  if (isDatabaseUnavailableError(error)) {
+    res.status(503).json({
+      error: "Database is unavailable.",
+      message: "Set a valid DATABASE_URL to enable this API. Static pages still work without a database."
+    });
+    return;
+  }
   res.status(500).json({ error: "Server gặp lỗi. Vui lòng thử lại sau." });
 });
 
 async function startServer() {
-  await initDb();
   app.listen(port, () => {
-    console.log(`Mai Huong website is running at ${appUrl}`);
+    const databaseStatus = process.env.DATABASE_URL ? "database will initialize on first API use" : "database disabled";
+    console.log(`Mai Huong website is running at ${appUrl} (${databaseStatus})`);
   });
 }
 
