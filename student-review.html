@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ôn tập hôm nay | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="student-app student-dashboard-page student-samio-page student-tool-page">
+  <aside class="student-sidebar" aria-label="Menu học sinh">
+    <a class="student-logo" href="home.html"><span>🧠</span><strong>Ctrl+Brain</strong></a>
+    <div class="student-role-switch">
+      <a class="active" href="student.html" data-role-target="student">Học viên</a>
+      <a href="teacher.html" data-role-target="teacher">Giáo viên</a>
+    </div>
+    <nav class="student-menu" aria-label="Danh mục học sinh">
+      <a href="home.html"><span class="menu-home-icon">⌂</span> Trang chủ</a>
+      <a href="assignment.html">▣ Bài tập</a>
+      <a href="student-classes.html">▥ Lớp học</a>
+      <a href="student-progress.html">★ Kết quả</a>
+    </nav>
+  </aside>
+  <main class="student-main">
+    <header class="student-topbar">
+      <div class="student-topbar-left">
+        <button class="student-icon-button" type="button" id="studentMenuButton" aria-label="Mở menu">☰</button>
+        <button class="student-icon-button" type="button" aria-label="Toàn màn hình">⌗</button>
+      </div>
+      <label class="student-search"><span class="sr-only">Tìm kiếm</span><input type="search" placeholder="Tìm bộ từ, bài tập, lớp..."></label>
+      <div class="student-topbar-right">
+        <button class="student-icon-button moon-button" type="button" id="studentThemeButton" aria-label="Đổi giao diện">🌙</button>
+        <button class="student-icon-button" type="button" id="studentBellButton" aria-label="Thông báo">🔔</button>
+        <span class="student-plan-badge">FREE</span>
+        <button class="student-user-chip" type="button"><strong data-student-avatar>M</strong><span data-student-name>maihuong.demo</span><small>▼</small></button>
+      </div>
+    </header>
+    <section class="student-tool-main">
+      <nav class="student-tool-breadcrumb"><a href="student.html">⌂ Trang chủ</a><span>/</span><b>Ôn tập hôm nay</b></nav>
+      <section class="student-tool-title">
+        <h1>▣ Ôn tập hôm nay</h1>
+        <span id="reviewCount">10 từ</span>
+      </section>
+      <section class="review-stage" aria-label="Thẻ ôn tập">
+        <article class="review-card" id="reviewCard" tabindex="0">
+          <div class="review-card-face">
+            <strong id="reviewWord">recycle</strong>
+            <span id="reviewPhonetic">/ˌriːˈsaɪkəl/</span>
+            <button id="reviewSpeakButton" type="button" aria-label="Nghe phát âm">🔊</button>
+          </div>
+          <div class="review-meaning" id="reviewMeaning">tái chế</div>
+        </article>
+        <p id="reviewStatus">Nhấp vào thẻ để xem nghĩa, rồi tự đánh giá</p>
+        <div class="review-actions">
+          <button class="review-forget" id="reviewForgetButton" type="button">⊗ Quên</button>
+          <button class="review-remember" id="reviewRememberButton" type="button">⊙ Nhớ</button>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="student-tools.js"></script>
+</body>
+</html>

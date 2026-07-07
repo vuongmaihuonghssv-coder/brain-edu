@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giao bài | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="home.html">Học viên</a>
+      <a class="active" href="teacher.html">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="teacher.html">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a href="assignments.html">Bài tập</a>
+      <a href="classes.html">Lớp học</a>
+      <a class="active" href="assign-work.html">Giao bài</a>
+      <a href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer"><span>○</span><span>◎</span><span>⇥</span></div>
+  </aside>
+
+  <main class="teacher-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard data-page assign-form-page">
+      <a class="breadcrumb" href="teacher.html">⌂ Trang chủ <span>/</span> Giao bài</a>
+
+      <section class="assignment-title-card assign-form-title">
+        <h1>Giao bài tập</h1>
+      </section>
+
+      <form id="assignWorkForm" class="assign-form-stack">
+        <section class="assign-form-card">
+          <h2>Tiêu đề bài tập</h2>
+          <label>
+            Tiêu đề bài tập
+            <input type="text" id="assignTitleInput" placeholder="VD: BTVN tuần 1" required>
+          </label>
+          <div class="assign-two-cols assign-title-row">
+            <label>
+              Lớp giao
+              <select id="assignClassSelect"></select>
+              <small>Chọn lớp để giao cho học viên trong lớp, hoặc để trống để chỉ lấy link/mã chia sẻ.</small>
+            </label>
+            <label>
+              Loại nội dung
+              <select id="assignContentTypeInput">
+                <option value="assignment">Bài tập</option>
+                <option value="lesson">Bài học</option>
+                <option value="test">Bài kiểm tra</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Chọn bài tập
+            <select id="assignAssignmentSelect" required></select>
+          </label>
+          <label>
+            Chủ đề
+            <select id="assignTopicInput">
+              <option value="grammar">Grammar</option>
+              <option value="vocabulary">Vocabulary</option>
+              <option value="reading">Reading</option>
+              <option value="listening">Listening</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="assign-form-card">
+          <h2>Hoạt động giao cho học sinh</h2>
+          <p class="assign-muted">Cần chọn ít nhất 1 hoạt động</p>
+          <label class="assign-check-line">
+            <input type="checkbox" id="activityHomeworkInput" checked>
+            Làm bài tập
+          </label>
+          <label>
+            Mô tả, hướng dẫn cho học sinh (nếu có)
+            <textarea id="assignNoteInput" rows="4"></textarea>
+          </label>
+        </section>
+
+        <section class="assign-form-card">
+          <h2>Thời gian mở / đóng bài</h2>
+          <div class="assign-two-cols">
+            <label>
+              Ngày bắt đầu
+              <input type="datetime-local" id="assignStartInput">
+            </label>
+            <label>
+              Ngày kết thúc
+              <input type="datetime-local" id="assignDueInput">
+            </label>
+          </div>
+          <label class="assign-short-field">
+            Thời gian làm tính theo phút
+            <input type="number" id="assignDurationInput" min="0" value="0">
+          </label>
+        </section>
+
+        <section class="assign-advanced-box">
+          <details open>
+            <summary>⚙ Tùy chọn nâng cao <span>– chia sẻ, mật khẩu, lượt làm, bảo mật, xem lại đáp án</span></summary>
+
+            <div class="assign-form-card nested">
+              <h2>Hình thức giao bài</h2>
+              <label class="assign-radio-line">
+                <input type="radio" name="assignMode" value="link" checked>
+                Nhập mã / link để làm bài (HS không cần đăng nhập)
+              </label>
+              <label class="assign-radio-line disabled">
+                <input type="radio" name="assignMode" value="class">
+                Giao cho 1 lớp (HS phải đăng nhập để làm bài)
+              </label>
+              <p class="assign-muted">Bạn chưa chọn lớp → bài chỉ chia sẻ bằng link/mã. Sau khi lưu, vào “Bài đã giao” bấm Copy link.</p>
+              <label class="assign-short-field">
+                Mật khẩu làm bài
+                <input type="text" id="assignPasswordInput" placeholder="Để trống nếu không cần">
+              </label>
+            </div>
+
+            <div class="assign-form-card nested">
+              <h2>Lượt làm & điểm</h2>
+              <div class="assign-three-cols">
+                <label>
+                  Số lượt làm tối đa
+                  <input type="number" id="assignAttemptInput" min="0" value="0">
+                </label>
+                <label>
+                  Cách lấy điểm
+                  <select id="scoreModeInput">
+                    <option value="highest">Điểm cao nhất</option>
+                    <option value="latest">Điểm lần cuối</option>
+                    <option value="average">Điểm trung bình</option>
+                  </select>
+                </label>
+                <label>
+                  Thang điểm
+                  <input type="number" id="scoreScaleInput" min="1" value="10">
+                </label>
+              </div>
+            </div>
+
+            <div class="assign-form-card nested">
+              <h2>▣ Chế độ bảo mật khi làm bài</h2>
+              <label class="assign-radio-line">
+                <input type="radio" name="securityMode" value="normal" checked>
+                Bài tập thông thường — làm bài bình thường.
+              </label>
+              <label class="assign-radio-line tall">
+                <input type="radio" name="securityMode" value="secure">
+                <span><strong>Bảo mật nâng cao</strong> — khóa chọn chữ / copy / chuột phải, nếu thoát toàn màn hình hoặc mất tiêu điểm quá 3 lần sẽ tự động nộp bài.</span>
+              </label>
+              <label class="assign-check-line">
+                <input type="checkbox" id="shuffleAnswersInput">
+                Đảo vị trí các lựa chọn — xáo trộn thứ tự đáp án (A/B/C/D...) mỗi lần làm.
+              </label>
+            </div>
+
+            <div class="assign-form-card nested">
+              <h2>Sau khi nộp bài, HS có thể:</h2>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterSubmitView" value="score_answers" checked>
+                Xem Điểm + Đáp án
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterSubmitView" value="score_correct">
+                Xem Điểm + Biết kết quả Đúng/Sai (không hiển thị đáp án)
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterSubmitView" value="score_only">
+                Chỉ xem Tổng điểm
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterSubmitView" value="complete_only">
+                Chỉ Xác nhận Hoàn thành
+              </label>
+            </div>
+
+            <div class="assign-form-card nested">
+              <h2>Sau khi hết thời hạn làm bài tập, HS có thể:</h2>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterDeadlineView" value="score_answers" checked>
+                Xem Điểm + Đáp án
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterDeadlineView" value="score_correct">
+                Xem Điểm + Biết kết quả Đúng/Sai (không hiển thị đáp án)
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterDeadlineView" value="score_only">
+                Chỉ xem Tổng điểm
+              </label>
+              <label class="assign-radio-line">
+                <input type="radio" name="afterDeadlineView" value="complete_only">
+                Chỉ Xác nhận Hoàn thành
+              </label>
+            </div>
+          </details>
+        </section>
+
+        <button class="assign-submit-button" type="submit">➤ Giao bài</button>
+        <p class="form-message" id="assignWorkMessage" role="status"></p>
+
+        <section class="assign-recent-table-card">
+          <h2>Bài đã giao gần đây</h2>
+          <div class="table-scroll">
+            <table class="teacher-data-table assign-recent-table">
+              <thead>
+                <tr>
+                  <th>Nội dung</th>
+                  <th>Lớp</th>
+                  <th>Hạn</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="assignRecentBody"></tbody>
+            </table>
+          </div>
+        </section>
+      </form>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="topbar.js"></script>
+  <script src="assign-work.js"></script>
+</body>
+</html>

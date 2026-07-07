@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bài đã giao | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="home.html">Học viên</a>
+      <a class="active" href="teacher.html">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="teacher.html">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a href="assignments.html">Bài tập</a>
+      <a href="classes.html">Lớp học</a>
+      <a href="assign-work.html">Giao bài</a>
+      <a class="active" href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer"><span>○</span><span>◎</span><span>⇥</span></div>
+  </aside>
+
+  <main class="teacher-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard data-page">
+      <a class="breadcrumb" href="home.html">⌂ Trang chủ <span>/</span> Bài đã giao</a>
+
+      <section class="data-title-card">
+        <div>
+          <h1>Danh sách bài đã giao</h1>
+          <p>Theo dõi bài đang mở, nháp, đã ẩn và lượt nộp của học sinh.</p>
+        </div>
+        <a class="button primary" href="assign-work.html">+ Giao bài</a>
+      </section>
+
+      <section class="assigned-summary-grid">
+        <article><strong id="activeAssignedCount">0</strong><span>Đang giao</span></article>
+        <article><strong id="draftAssignedCount">0</strong><span>Nháp</span></article>
+        <article><strong id="hiddenAssignedCount">0</strong><span>Đã ẩn</span></article>
+        <article><strong id="submissionAssignedCount">0</strong><span>Lượt nộp</span></article>
+      </section>
+
+      <section class="data-table-card">
+        <div class="assignment-toolbar assigned-toolbar">
+          <div class="assignment-tabs" role="tablist" aria-label="Lọc bài đã giao">
+            <button class="active" type="button" data-assigned-filter="all">Tất cả</button>
+            <button type="button" data-assigned-filter="active">Đang giao</button>
+            <button type="button" data-assigned-filter="draft">Nháp</button>
+            <button type="button" data-assigned-filter="hidden">Đã ẩn</button>
+          </div>
+          <input type="search" id="assignedSearch" placeholder="Tìm theo bài tập hoặc lớp...">
+        </div>
+        <div class="table-scroll">
+          <table class="teacher-data-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Bài tập</th>
+                <th>Lớp</th>
+                <th>Hạn nộp</th>
+                <th>Trạng thái</th>
+                <th>Lượt nộp</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody id="assignedWorkBody"></tbody>
+          </table>
+        </div>
+        <p class="form-message" id="assignedWorkMessage" role="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="topbar.js"></script>
+  <script src="assigned-work.js"></script>
+</body>
+</html>

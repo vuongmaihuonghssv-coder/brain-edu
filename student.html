@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Học sinh | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="student-app student-dashboard-page student-samio-page">
+  <aside class="student-sidebar" aria-label="Menu học sinh">
+    <a class="student-logo" href="home.html"><span>🧠</span><strong>Ctrl+Brain</strong></a>
+    <div class="student-role-switch">
+      <a class="active" href="student.html" data-role-target="student">Học viên</a>
+      <a href="teacher.html" data-role-target="teacher">Giáo viên</a>
+    </div>
+    <nav class="student-menu" aria-label="Danh mục học sinh">
+      <a class="active" href="home.html"><span class="menu-home-icon">⌂</span> Trang chủ</a>
+      <a href="assignment.html">▣ Bài tập</a>
+      <a href="#classes">▥ Lớp học</a>
+      <a href="#results">★ Kết quả</a>
+    </nav>
+    <div class="student-sidebar-footer">
+      <span>Tiến độ</span>
+      <strong id="studentSidebarProgress">0%</strong>
+    </div>
+  </aside>
+
+  <main class="student-main">
+    <header class="student-topbar">
+      <div class="student-topbar-left">
+        <button class="student-icon-button" type="button" id="studentMenuButton" aria-label="Mở menu">☰</button>
+        <button class="student-icon-button" type="button" aria-label="Toàn màn hình">⌗</button>
+      </div>
+      <label class="student-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="student-topbar-right">
+        <button class="student-icon-button moon-button" type="button" id="studentThemeButton" aria-label="Đổi giao diện">🌙</button>
+        <button class="student-icon-button" type="button" id="studentBellButton" aria-label="Thông báo">🔔</button>
+        <span class="student-plan-badge">FREE</span>
+        <button class="student-user-chip" type="button" id="studentUserChip">
+          <strong id="studentDashboardAvatar">M</strong>
+          <span id="studentTopbarName">maihuong</span>
+          <small>▼</small>
+        </button>
+      </div>
+    </header>
+
+    <section class="student-dashboard-home" aria-labelledby="studentDashboardGreeting">
+      <a class="student-breadcrumb" href="home.html">⌂ Trang chủ</a>
+
+      <article class="student-welcome-banner">
+        <div class="student-welcome-copy">
+          <h1 id="studentDashboardGreeting">Chào mừng trở lại, maihuong!</h1>
+          <p>Não đã khởi động, cà phê tưởng tượng đã pha. Hôm nay mình học nhẹ nhàng mà vẫn <b>lên trình</b> nhé.</p>
+          <a class="student-primary-button" href="#joinArea">Tham gia lớp bằng mã</a>
+        </div>
+        <div class="student-welcome-art" aria-hidden="true">
+          <img src="assets/english-center-hero.png" alt="">
+          <span class="student-art-bubble bubble-a">A</span>
+          <span class="student-art-bubble bubble-arc"></span>
+          <span class="student-art-bubble bubble-pencil"></span>
+          <span class="student-art-spark spark-one">✦</span>
+          <span class="student-art-spark spark-two">✧</span>
+          <span class="student-art-loop loop-one"></span>
+        </div>
+      </article>
+
+      <section class="student-study-heading">
+        <span class="student-heading-icon">🎓</span>
+        <div>
+          <h2>Khu vực học</h2>
+          <p>Theo dõi tiến độ và bài tập của bạn</p>
+        </div>
+        <div class="student-heading-actions">
+          <a class="student-ghost-button" href="student-review.html">Ôn tập</a>
+          <a class="student-action-button" href="student-progress.html">📈 Tiến độ học tập</a>
+        </div>
+      </section>
+
+      <section class="student-join-card" id="joinArea">
+        <span>⚿</span>
+        <p><b>Bắt đầu học:</b> nhập mã lớp để tham gia và nhận bài, hoặc nhập mã bài tập để làm ngay.</p>
+        <div>
+          <a class="student-join-button" href="student-classes.html">Tham gia lớp</a>
+          <a class="student-ghost-button" href="assignment-code.html">Nhập mã bài tập</a>
+        </div>
+      </section>
+
+      <section class="student-stat-grid student-samio-stats" aria-label="Thống kê học tập">
+        <article class="student-stat-card"><p>Lớp đang học</p><strong id="studentClassCount">0</strong><a href="#classes">Xem chi tiết</a><span>🏫</span></article>
+        <article class="student-stat-card"><p>Bài được giao</p><strong id="studentAssignedCount">0</strong><a href="#assignments">Xem chi tiết</a><span>📋</span></article>
+        <article class="student-stat-card"><p>Lượt làm bài</p><strong id="studentDoneCount">0</strong><a href="#results">Xem chi tiết</a><span>✅</span></article>
+        <article class="student-stat-card"><p>Điểm TB (/10)</p><strong id="studentAverageScore">-</strong><a href="#results">Xem chi tiết</a><span>⊙</span></article>
+      </section>
+
+      <article class="student-panel student-activity-panel">
+        <div class="student-panel-head">
+          <h2>Hoạt động học tập</h2>
+          <span>14 ngày gần nhất</span>
+        </div>
+        <div class="student-activity-summary">
+          <div><strong id="studentActivityCount">0</strong><span>Lượt làm (14 ngày)</span></div>
+          <div><strong id="studentStreakCount">0 ngày</strong><span>Chuỗi liên tiếp</span></div>
+          <div><strong id="studentAverageInline">-</strong><span>Điểm TB (/10)</span></div>
+          <div><strong id="studentProgressPercent">0%</strong><span>Huy hiệu</span></div>
+        </div>
+        <div class="student-chart" aria-hidden="true">
+          <svg viewBox="0 0 960 220" preserveAspectRatio="none">
+            <g stroke="#eef2f7" stroke-width="1">
+              <path d="M0 24H960M0 56H960M0 88H960M0 120H960M0 152H960M0 184H960" />
+            </g>
+            <path d="M0 184 C140 184 220 184 330 184 C430 184 455 184 480 28 C505 184 535 184 620 184 C720 184 820 184 960 184" fill="none" stroke="#435795" stroke-width="4" stroke-linecap="round" />
+            <g fill="#74809c" font-size="13">
+              <text x="0" y="214">24/06</text><text x="140" y="214">26/06</text><text x="280" y="214">28/06</text><text x="420" y="214">30/06</text><text x="560" y="214">02/07</text><text x="700" y="214">04/07</text><text x="850" y="214">06/07</text>
+            </g>
+          </svg>
+        </div>
+      </article>
+
+      <section class="student-samio-bottom">
+        <article class="student-panel student-achievement-panel">
+          <div class="student-panel-head">
+            <h2>Chuỗi ngày & Thành tích</h2>
+            <span>1/5</span>
+          </div>
+          <div class="student-achievement-main">
+            <span>♟</span>
+            <div><strong>0 ngày</strong><p>Làm 1 bài hôm nay để bắt đầu!</p></div>
+          </div>
+          <a class="student-action-button" href="assignment.html">Ôn tập · 10 từ</a>
+          <div class="student-badge-grid">
+            <span class="active">🚀 Khởi động</span>
+            <span>💪 Chăm chỉ</span>
+            <span>📚 Cao thủ từ vựng</span>
+            <span>✳ Điểm tuyệt đối</span>
+          </div>
+        </article>
+
+        <article class="student-panel" id="assignments">
+          <div class="student-panel-head">
+            <h2>Bài cần làm</h2>
+            <a class="student-small-link" href="assignment.html">Tất cả →</a>
+          </div>
+          <div class="student-assignment-list" id="studentAssignmentList"></div>
+        </article>
+
+        <article class="student-panel" id="classes">
+          <div class="student-panel-head">
+            <h2>Lớp của tôi</h2>
+            <a class="student-small-link" href="#classes">Tất cả →</a>
+          </div>
+          <div class="student-class-list" id="studentClassList"></div>
+        </article>
+      </section>
+
+      <article class="student-panel" id="results">
+        <div class="student-panel-head">
+          <h2>Kết quả gần đây</h2>
+          <button class="student-ghost-button" type="button" id="studentRefreshButton">Làm mới</button>
+        </div>
+        <div class="student-result-list" id="studentResultList"></div>
+      </article>
+
+      <div hidden>
+        <span id="studentHeroAvatar">M</span>
+        <a id="studentContinueButton" href="assignment.html">Vào học</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="student-dashboard.js"></script>
+</body>
+</html>

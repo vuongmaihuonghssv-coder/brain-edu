@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lớp học | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="home.html">Học viên</a>
+      <a class="active" href="teacher.html">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="teacher.html">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a href="assignments.html">Bài tập</a>
+      <a class="active" href="classes.html">Lớp học</a>
+      <a href="assign-work.html">Giao bài</a>
+      <a href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer"><span>○</span><span>◎</span><span>⇥</span></div>
+  </aside>
+
+  <main class="teacher-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard data-page">
+      <a class="breadcrumb" href="home.html">⌂ Trang chủ <span>/</span> Lớp học</a>
+
+      <section class="data-title-card">
+        <h1>Danh sách lớp</h1>
+        <button class="button primary" type="button" id="openClassForm">+ Thêm lớp</button>
+      </section>
+
+      <section class="data-table-card">
+        <div class="table-scroll">
+          <table class="teacher-data-table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Tên lớp</th>
+                <th>Khối</th>
+                <th>Ghi chú</th>
+                <th>Số HS</th>
+                <th>Bài giao</th>
+                <th>Mã lớp</th>
+                <th>Tác vụ</th>
+              </tr>
+            </thead>
+            <tbody id="classTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="page-modal-backdrop" id="classModal" hidden>
+    <section class="page-modal" role="dialog" aria-modal="true" aria-labelledby="classModalTitle">
+      <div class="page-modal-head">
+        <h2 id="classModalTitle">Thêm lớp học</h2>
+        <button type="button" data-close-modal aria-label="Đóng">×</button>
+      </div>
+      <form id="classForm" class="page-modal-form">
+        <label>
+          Tên lớp
+          <input type="text" id="classNameInput" placeholder="VD: 5A" required>
+        </label>
+        <label>
+          Khối
+          <input type="text" id="classGradeInput" placeholder="VD: Khối 5">
+        </label>
+        <label>
+          Ghi chú
+          <textarea id="classNoteInput" rows="3" placeholder="Ghi chú ngắn cho lớp"></textarea>
+        </label>
+        <div class="page-modal-actions">
+          <button class="button secondary" type="button" data-close-modal>Hủy</button>
+          <button class="button primary" type="submit">Lưu lớp</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="topbar.js"></script>
+  <script src="classes.js"></script>
+</body>
+</html>

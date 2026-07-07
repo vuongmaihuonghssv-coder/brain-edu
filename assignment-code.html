@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhập mã bài tập | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="code-entry-page">
+  <main class="code-entry-shell">
+    <form class="code-entry-card" id="assignmentCodeForm">
+      <h1><span>🧠</span> Ctrl+Brain</h1>
+      <p>Nhập mã để vào làm bài</p>
+      <label>
+        <span class="sr-only">Mã bài tập</span>
+        <input id="assignmentCodeInput" type="text" placeholder="••••••" maxlength="12" autocomplete="off" autofocus>
+      </label>
+      <button type="submit">Vào làm bài</button>
+      <small>Bạn không cần đăng nhập. Mã do giáo viên cung cấp.</small>
+      <a href="student.html">← Quay lại đăng nhập</a>
+      <p class="student-tool-message" id="assignmentCodeMessage" role="status"></p>
+    </form>
+  </main>
+  <script src="student-tools.js"></script>
+</body>
+</html>

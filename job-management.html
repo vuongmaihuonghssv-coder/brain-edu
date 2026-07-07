@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý tuyển dụng | Mai Hương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="petal-field" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <main class="page-shell">
+    <nav class="top-nav" aria-label="Menu chính">
+      <a href="news.html">Tin tức</a>
+      <a href="recruitment.html">Tuyển dụng</a>
+      <a href="about.html">About me</a>
+      <a class="active" href="job-management.html">Quản lý</a>
+      <a href="teacher.html">Giáo viên</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+
+    <section class="section-block page-header">
+      <p class="section-kicker">Dashboard / Quản trị</p>
+      <h1>Quản lý bài đăng tuyển dụng</h1>
+      <p>Xin chào <strong id="adminUserName">admin</strong>. Bạn có thể tạo, sửa, xóa, tìm kiếm, lọc và đổi trạng thái bài tuyển dụng.</p>
+      <button class="button secondary logout-button" type="button" data-logout>Đăng xuất</button>
+    </section>
+
+    <section class="manager-grid" aria-label="Khu vực quản lý tuyển dụng">
+      <div class="section-block manager-panel">
+        <div class="manager-heading">
+          <div>
+            <p class="section-kicker">Posts / Bài đăng</p>
+            <h2>Danh sách tuyển dụng</h2>
+          </div>
+          <button class="button primary" type="button" id="newJobButton">Tạo bài mới</button>
+        </div>
+
+        <div class="stats-grid" id="jobStats" aria-label="Thống kê tuyển dụng"></div>
+
+        <div class="manager-tools">
+          <input type="search" id="jobSearch" placeholder="Tìm theo vị trí, mô tả hoặc kỹ năng">
+          <select id="jobStatusFilter" aria-label="Lọc trạng thái">
+            <option value="">Tất cả trạng thái</option>
+            <option value="published">Đang đăng</option>
+            <option value="draft">Nháp</option>
+            <option value="hidden">Đã ẩn</option>
+          </select>
+        </div>
+
+        <div class="post-table" role="table" aria-label="Danh sách bài đăng tuyển dụng">
+          <div class="post-row post-head" role="row">
+            <span>Vị trí</span>
+            <span>Loại</span>
+            <span>Trạng thái</span>
+            <span>Thao tác</span>
+          </div>
+          <div id="jobRows"></div>
+        </div>
+      </div>
+
+      <aside class="section-block manager-panel">
+        <p class="section-kicker">Editor / Biên tập</p>
+        <h2>Tạo hoặc sửa bài</h2>
+        <form class="auth-form" id="jobForm">
+          <label>
+            Tên vị trí
+            <input type="text" id="jobTitle" placeholder="Ví dụ: Training Assistant" required>
+          </label>
+          <label>
+            Hình thức
+            <input type="text" id="jobType" placeholder="Full-time, Part-time, Internship" required>
+          </label>
+          <label>
+            Mô tả ngắn
+            <input type="text" id="jobDescription" placeholder="Nhập mô tả ngắn cho vị trí" required>
+          </label>
+          <label>
+            Kỹ năng, cách nhau bằng dấu phẩy
+            <input type="text" id="jobTags" placeholder="Planning, Communication, Office">
+          </label>
+          <label>
+            Trạng thái
+            <select id="jobStatus">
+              <option value="draft">Nháp</option>
+              <option value="published">Đang đăng</option>
+              <option value="hidden">Đã ẩn</option>
+            </select>
+          </label>
+          <button class="button primary full-button" type="submit" id="saveJobButton">Lưu bài đăng</button>
+          <p class="form-message" id="adminMessage" role="status"></p>
+        </form>
+      </aside>
+    </section>
+  </main>
+  <script src="auth.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

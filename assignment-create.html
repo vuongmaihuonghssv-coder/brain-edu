@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạo bài tập | Mai Hương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="home.html">Học viên</a>
+      <a class="active" href="teacher.html">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="teacher.html">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a class="active" href="assignments.html">Bài tập</a>
+      <a href="classes.html">Lớp học</a>
+      <a href="assign-work.html">Giao bài</a>
+      <a href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span>○</span>
+      <span>◎</span>
+      <span>⇥</span>
+    </div>
+  </aside>
+
+  <main class="teacher-main create-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard assignment-create-page">
+      <div class="breadcrumb"><a href="teacher.html">⌂ Trang chủ</a> <span>/</span> Tạo bài tập</div>
+
+      <section class="assignment-title-card">
+        <h1>Tạo bài tập</h1>
+        <a class="button secondary" href="assignments.html">Hủy</a>
+      </section>
+
+      <form id="visualAssignmentForm">
+        <section class="create-card">
+          <h2>Thông tin chung của bài tập</h2>
+          <label>
+            Tiêu đề bài tập
+            <input type="text" id="visualAssignmentTitle" placeholder="VD: Đề kiểm tra giữa kỳ" required>
+          </label>
+          <div class="create-form-grid">
+            <label>
+              Chủ đề
+              <select id="visualAssignmentTopic">
+                <option value="">-- Chọn Topic --</option>
+                <option>Grammar</option>
+                <option>Vocabulary</option>
+                <option>Reading</option>
+                <option>Listening</option>
+              </select>
+            </label>
+            <label>
+              Thang điểm
+              <input type="number" id="visualAssignmentScore" value="10" min="1">
+            </label>
+            <label>
+              Thời gian (phút, 0 = không giới hạn)
+              <input type="number" id="visualAssignmentTime" value="0" min="0">
+            </label>
+          </div>
+        </section>
+
+        <div id="visualSections" class="visual-sections"></div>
+
+        <button class="button primary add-section-button" type="button" id="addVisualSection">+ Thêm phần</button>
+        <div class="create-actions">
+          <button class="button save-button" type="submit">▣ Lưu bài tập</button>
+          <a class="button secondary" href="assignments.html">Thoát</a>
+        </div>
+        <p class="form-message" id="visualAssignmentMessage" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <div class="ai-modal-backdrop" id="aiQuestionModal" hidden>
+    <section class="ai-question-modal" role="dialog" aria-modal="true" aria-labelledby="aiModalTitle">
+      <div class="ai-modal-header">
+        <h2 id="aiModalTitle">✧ Tạo câu hỏi bằng AI</h2>
+        <button type="button" id="closeAiModal" aria-label="Đóng">×</button>
+      </div>
+      <div class="ai-modal-body">
+        <p>Dạng câu hỏi (chọn 1 hoặc nhiều)</p>
+        <div class="ai-type-grid">
+          <label><input type="checkbox" value="Trắc nghiệm 1" checked> Trắc nghiệm 1</label>
+          <label><input type="checkbox" value="Trắc nghiệm N"> Trắc nghiệm N</label>
+          <label><input type="checkbox" value="Đúng/Sai"> Đúng/Sai</label>
+          <label><input type="checkbox" value="Đúng/Sai THPT"> Đúng/Sai THPT</label>
+          <label><input type="checkbox" value="Điền từ"> Điền từ</label>
+          <label><input type="checkbox" value="Điền từ (Gợi ý)"> Điền từ (Gợi ý)</label>
+          <label><input type="checkbox" value="Điền từ (DS)"> Điền từ (DS)</label>
+          <label><input type="checkbox" value="Ghép cặp"> Ghép cặp</label>
+          <label><input type="checkbox" value="Sắp xếp"> Sắp xếp</label>
+          <label><input type="checkbox" value="Phân loại"> Phân loại</label>
+        </div>
+        <label>
+          Số câu mỗi dạng (để trống = ~5)
+          <input type="number" id="aiQuestionCount" min="1" max="20" value="5">
+        </label>
+        <label>
+          Yêu cầu / dữ liệu (có thể dựa trên bài đọc của phần)
+          <textarea id="aiPromptText" rows="6"></textarea>
+        </label>
+      </div>
+      <div class="ai-modal-footer">
+        <button class="button secondary" type="button" id="cancelAiModal">Hủy</button>
+        <button class="button primary" type="button" id="generateAiQuestions">Tạo câu hỏi</button>
+      </div>
+    </section>
+  </div>
+  <div class="youtube-modal-backdrop" id="youtubeLinkModal" hidden>
+    <section class="youtube-link-modal" role="dialog" aria-modal="true" aria-labelledby="youtubeModalTitle">
+      <div class="youtube-modal-header">
+        <h2 id="youtubeModalTitle">Chèn video YouTube</h2>
+        <button type="button" id="closeYoutubeModal" aria-label="Đóng">×</button>
+      </div>
+      <div class="youtube-modal-body">
+        <label for="youtubeModalInput">Dán link YouTube</label>
+        <input type="url" id="youtubeModalInput" placeholder="https://...">
+        <p>VD: https://youtu.be/abc123 hoặc youtube.com/watch?v=abc123</p>
+      </div>
+      <div class="youtube-modal-footer">
+        <button class="button secondary" type="button" id="cancelYoutubeModal">Hủy</button>
+        <button class="button primary" type="button" id="insertYoutubeLink">Chèn</button>
+      </div>
+    </section>
+  </div>
+  <input type="file" id="questionImagePicker" accept="image/*" hidden>
+  <input type="file" id="questionAudioPicker" accept="audio/*,.mp3" hidden>
+  <script src="topbar.js"></script>
+  <script src="assignment-create.js"></script>
+</body>
+</html>

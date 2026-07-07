@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Làm bài tập tiếng Anh | Mai Hương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="student-app">
+  <div class="petal-field" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <main class="page-shell">
+    <nav class="top-nav" aria-label="Menu chính">
+      <a href="news.html">Tin tức</a>
+      <a href="recruitment.html">Tuyển dụng</a>
+      <a href="about.html">Contact</a>
+      <a href="teacher.html">🧠 Crt+Brain</a>
+    </nav>
+
+    <section class="section-block page-header" id="assignmentPageHeader">
+      <p class="section-kicker">Student assignment / Bài làm học sinh</p>
+      <h1 id="assignmentTitle">Bài tập tiếng Anh</h1>
+      <p id="assignmentDescription">Nhập thông tin để bắt đầu làm bài.</p>
+    </section>
+
+    <section class="assignment-workspace" id="assignmentWorkspace">
+      <div class="section-block" id="studentLoginPanel">
+        <p class="section-kicker">Student login / Thông tin học sinh</p>
+        <h2>Bắt đầu làm bài</h2>
+        <form class="auth-form" id="studentStartForm">
+          <label>
+            Họ tên
+            <input type="text" id="studentName" placeholder="Nguyễn Văn A">
+          </label>
+          <label>
+            Số báo danh
+            <input type="text" id="studentCode" placeholder="SBD001">
+          </label>
+          <label>
+            Gmail
+            <input type="email" id="studentEmail" placeholder="student@gmail.com" required>
+          </label>
+          <button class="button primary full-button" type="submit">Bắt đầu</button>
+          <p class="form-message" id="studentMessage" role="status"></p>
+        </form>
+      </div>
+
+      <form class="section-block quiz-panel" id="quizForm" hidden>
+        <p class="section-kicker">Quiz / Trắc nghiệm</p>
+        <div id="quizQuestions"></div>
+        <button class="button primary full-button" type="submit">Nộp bài</button>
+      </form>
+
+      <div class="section-block result-panel" id="resultPanel" hidden>
+        <p class="section-kicker">Result / Kết quả</p>
+        <h2 id="scoreText"></h2>
+        <p id="timeText"></p>
+        <div id="explanationList" class="explanation-list"></div>
+      </div>
+    </section>
+  </main>
+  <script src="assignment.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiến độ học tập | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="student-app student-dashboard-page student-samio-page student-tool-page">
+  <aside class="student-sidebar" aria-label="Menu học sinh">
+    <a class="student-logo" href="home.html"><span>🧠</span><strong>Ctrl+Brain</strong></a>
+    <div class="student-role-switch"><a class="active" href="student.html" data-role-target="student">Học viên</a><a href="teacher.html" data-role-target="teacher">Giáo viên</a></div>
+    <nav class="student-menu" aria-label="Danh mục học sinh">
+      <a href="home.html"><span class="menu-home-icon">⌂</span> Trang chủ</a>
+      <a href="assignment.html">▣ Bài tập</a>
+      <a href="student-classes.html">▥ Lớp học</a>
+      <a class="active" href="student-progress.html">★ Kết quả</a>
+    </nav>
+  </aside>
+  <main class="student-main">
+    <header class="student-topbar">
+      <div class="student-topbar-left"><button class="student-icon-button" type="button" id="studentMenuButton" aria-label="Mở menu">☰</button><button class="student-icon-button" type="button" aria-label="Toàn màn hình">⌗</button></div>
+      <label class="student-search"><span class="sr-only">Tìm kiếm</span><input type="search" placeholder="Tìm bộ từ, bài tập, lớp..."></label>
+      <div class="student-topbar-right"><button class="student-icon-button moon-button" type="button" id="studentThemeButton">🌙</button><button class="student-icon-button" type="button" id="studentBellButton">🔔</button><span class="student-plan-badge">FREE</span><button class="student-user-chip" type="button"><strong data-student-avatar>M</strong><span data-student-name>maihuong.demo</span><small>▼</small></button></div>
+    </header>
+    <section class="student-tool-main">
+      <nav class="student-tool-breadcrumb"><a href="student.html">⌂ Trang chủ</a><span>/</span><b>Tiến độ học tập</b></nav>
+      <section class="student-tool-title"><h1>⌁ Tiến độ học tập</h1></section>
+      <section class="progress-stat-grid">
+        <article><strong>0</strong><span>Bài tập đã làm</span><i>▱</i></article>
+        <article><strong>–</strong><span>Điểm trung bình bài tập</span><i>⊙</i></article>
+        <article><strong>1</strong><span>Lượt luyện từ vựng</span><i>▥</i></article>
+      </section>
+      <section class="progress-panel">
+        <h2>Điểm các bài gần đây</h2>
+        <div class="progress-empty"><span>▥</span><p>Chưa có dữ liệu. Hãy làm một bài tập để xem tiến độ của bạn ở đây.</p></div>
+      </section>
+      <section class="progress-ai-band">
+        <div><h2>✧ Gia sư AI - phân tích điểm yếu</h2><p id="aiProgressMessage">Tổng hợp câu hay sai & từ hay quên của bạn, gợi ý cách ôn tập cụ thể.</p></div>
+        <button id="askAiButton" type="button">✧ Nhờ AI phân tích</button>
+      </section>
+      <section class="forgotten-panel">
+        <h2>▣ Từ hay quên</h2>
+        <p>Những từ bạn hay làm sai khi luyện - bấm để ôn lại bộ từ.</p>
+        <div class="forgotten-word-grid">
+          <span><b>sorting</b><small>phân loại</small><i>×1</i></span>
+          <span><b>paper</b><small>giấy</small><i>×1</i></span>
+          <span><b>metal</b><small>kim loại</small><i>×1</i></span>
+          <span><b>reuse</b><small>tái sử dụng</small><i>×1</i></span>
+          <span><b>material</b><small>vật liệu</small><i>×1</i></span>
+          <span><b>waste</b><small>rác thải</small><i>×1</i></span>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="student-tools.js"></script>
+</body>
+</html>

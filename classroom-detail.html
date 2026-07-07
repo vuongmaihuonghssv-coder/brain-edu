@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý lớp | Ctrl+Brain</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="home.html">Học viên</a>
+      <a class="active" href="teacher.html">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="teacher.html">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a href="assignments.html">Bài tập</a>
+      <a class="active" href="classes.html">Lớp học</a>
+      <a href="assign-work.html">Giao bài</a>
+      <a href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer"><span>○</span><span>◎</span><span>⇥</span></div>
+  </aside>
+
+  <main class="teacher-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard data-page classroom-page classroom-samio-page">
+      <a class="breadcrumb" href="classes.html">⌂ Trang chủ <span>/</span> <strong id="breadcrumbClassName">5A</strong></a>
+
+      <section class="classroom-samio-hero">
+        <div class="classroom-hero-left">
+          <button class="classroom-round-button" type="button" id="backToClasses" aria-label="Quay lại">←</button>
+          <div>
+            <h1><span>▥</span> <strong id="classroomName">5A</strong></h1>
+            <button class="classroom-code-pill" type="button" id="copyClassCode">Mã lớp: <span id="classroomCode">------</span></button>
+          </div>
+        </div>
+        <div class="classroom-hero-actions">
+          <button type="button" id="openClassComment">☑ Nhận xét</button>
+          <button type="button" id="openScoreMap">▣ Bản đồ điểm</button>
+          <button type="button" id="openScoreBook">▣ Sổ điểm</button>
+          <button class="classroom-delete-button" type="button" id="deleteClassButton" aria-label="Xóa lớp">♲</button>
+        </div>
+      </section>
+
+      <section class="classroom-metric-grid">
+        <article><strong id="classStudentCount">0</strong><span>Sĩ số</span></article>
+        <article><strong id="classAssignedCount">0</strong><span>Bài đã giao</span></article>
+        <article><strong id="classAverageScore">--</strong><span>Điểm TB lớp</span></article>
+        <article><strong id="classCompletionRate">0%</strong><span>Hoàn thành</span></article>
+      </section>
+
+      <section class="classroom-open-card">
+        <div class="classroom-lock-icon" id="classLockIcon">🔒</div>
+        <div>
+          <h2 id="classOpenTitle">Lớp đang ĐÓNG</h2>
+          <p id="classOpenText">Chỉ học viên có tài khoản mới vào lớp được (qua mã lớp). Bật “Lớp mở” để chia sẻ link cho khách.</p>
+        </div>
+        <div class="classroom-open-actions">
+          <button class="open-class-button" type="button" id="toggleClassOpen">🌐 Bật lớp mở</button>
+          <button class="free-course-button" type="button" id="toggleFreeCourse">🎓 Đăng làm Khoá học miễn phí</button>
+        </div>
+      </section>
+
+      <section class="classroom-course-card">
+        <strong>▧ Thông tin & ảnh bìa khoá học</strong>
+        <span>hiển thị ở trang Khoá học miễn phí</span>
+      </section>
+
+      <section class="classroom-two-panels">
+        <article class="classroom-samio-panel">
+          <div class="classroom-panel-head compact">
+            <h2>▥ Bài đã giao</h2>
+            <a class="button primary" href="assign-work.html">+ Giao bài</a>
+          </div>
+          <div id="classAssignedList" class="classroom-assigned-list samio-list"></div>
+        </article>
+
+        <article class="classroom-samio-panel">
+          <div class="classroom-panel-head compact">
+            <h2>♧ Học viên (<span id="classStudentCountInline">0</span>)</h2>
+            <button class="button primary" type="button" id="openStudentForm">+ Ghi danh</button>
+          </div>
+          <div class="classroom-student-empty" id="studentEmptyState" hidden>
+            <p>Chưa có học viên.</p>
+            <span>Bấm + Ghi danh để thêm.</span>
+          </div>
+          <div class="table-scroll" id="studentTableWrap">
+            <table class="teacher-data-table classroom-student-table">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Học viên</th>
+                  <th>Số báo danh</th>
+                  <th>Gmail</th>
+                  <th>Tác vụ</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <div class="page-modal-backdrop" id="studentModal" hidden>
+    <section class="page-modal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+      <div class="page-modal-head">
+        <h2 id="studentModalTitle">Thêm học sinh</h2>
+        <button type="button" data-close-student-modal aria-label="Đóng">×</button>
+      </div>
+      <form id="studentForm" class="page-modal-form">
+        <label>
+          Tên học sinh
+          <input type="text" id="studentNameInput" placeholder="VD: Nguyễn Minh Anh" required>
+        </label>
+        <label>
+          Số báo danh
+          <input type="text" id="studentCodeInput" placeholder="VD: HS001">
+        </label>
+        <label>
+          Gmail
+          <input type="email" id="studentEmailInput" placeholder="student@gmail.com">
+        </label>
+        <div class="page-modal-actions">
+          <button class="button secondary" type="button" data-close-student-modal>Hủy</button>
+          <button class="button primary" type="submit">Lưu học sinh</button>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="page-modal-backdrop" id="classroomInfoModal" hidden>
+    <section class="page-modal" role="dialog" aria-modal="true" aria-labelledby="classroomInfoTitle">
+      <div class="page-modal-head">
+        <h2 id="classroomInfoTitle">Thông tin lớp</h2>
+        <button type="button" data-close-info-modal aria-label="Đóng">×</button>
+      </div>
+      <div class="classroom-info-body" id="classroomInfoBody"></div>
+      <div class="page-modal-actions classroom-info-actions">
+        <button class="button secondary" type="button" data-close-info-modal>Đóng</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="topbar.js"></script>
+  <script src="classroom-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "mai-huong-portfolio",
+  "version": "1.0.0",
+  "description": "Mai Huong personal website with auth, recruitment management, and education news.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.8.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16"
+  }
+}

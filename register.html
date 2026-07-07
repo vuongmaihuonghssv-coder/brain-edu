@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký | Mai Hương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="petal-field" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <main class="page-shell">
+    <nav class="top-nav" aria-label="Menu chính">
+      <a href="news.html">Tin tức</a>
+      <a href="recruitment.html">Tuyển dụng</a>
+      <a href="about.html">About me</a>
+      <a href="job-management.html">Quản lý</a>
+      <a href="teacher.html">Giáo viên</a>
+      <a class="active" href="login.html">Đăng nhập</a>
+    </nav>
+
+    <section class="auth-layout single-auth" aria-labelledby="register-title">
+      <div class="section-block auth-panel">
+        <p class="section-kicker">Create account / Tạo tài khoản</p>
+        <h1 id="register-title">Đăng ký tài khoản</h1>
+        <p>Tạo tài khoản thật trong SQLite bằng họ tên, Gmail, tên đăng nhập và password.</p>
+
+        <form class="auth-form" id="registerForm">
+          <label>
+            Họ và tên
+            <input type="text" id="registerName" autocomplete="name" placeholder="Mai Hương" required>
+          </label>
+          <label>
+            Gmail
+            <input type="email" id="registerEmail" autocomplete="email" placeholder="ban@gmail.com" required>
+          </label>
+          <label>
+            Tên đăng nhập
+            <input type="text" id="registerUsername" autocomplete="username" placeholder="maihuong" required>
+          </label>
+          <label>
+            Password
+            <span class="password-field">
+              <input type="password" id="registerPassword" autocomplete="new-password" placeholder="Tối thiểu 6 ký tự" required>
+              <button type="button" class="text-button" data-toggle-password="registerPassword">Hiện</button>
+            </span>
+          </label>
+          <label>
+            Nhập lại password
+            <span class="password-field">
+              <input type="password" id="confirmPassword" autocomplete="new-password" placeholder="Nhập lại password" required>
+              <button type="button" class="text-button" data-toggle-password="confirmPassword">Hiện</button>
+            </span>
+          </label>
+          <button class="button primary full-button" type="submit">Tạo tài khoản</button>
+          <p class="switch-auth">
+            Đã có tài khoản?
+            <a href="login.html">Quay lại đăng nhập</a>
+          </p>
+          <p class="form-message" id="registerMessage" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="auth.js"></script>
+</body>
+</html>

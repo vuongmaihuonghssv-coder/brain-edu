@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giáo viên | Mai Hương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="teacher-app">
+  <aside class="teacher-sidebar" aria-label="Menu giáo viên">
+    <a class="teacher-logo" href="teacher.html"><span class="brain-logo-icon">🧠</span><span>Ctrl+Brain</span></a>
+    <div class="role-switch">
+      <a href="student.html" data-role-target="student">Học viên</a>
+      <a class="active" href="teacher.html" data-role-target="teacher">Giáo viên</a>
+    </div>
+    <nav class="teacher-menu">
+      <a href="home.html">Trang chủ</a>
+      <a class="active" href="#dashboard">Bảng điều khiển</a>
+      <p>Soạn & dạy</p>
+      <a href="assignments.html">Bài tập</a>
+      <a href="classes.html">Lớp học</a>
+      <a href="assign-work.html">Giao bài</a>
+      <a href="assigned-work.html">Bài đã giao</a>
+    </nav>
+    <div class="sidebar-footer">
+      <span>○</span>
+      <span>◎</span>
+      <span>⇥</span>
+    </div>
+  </aside>
+
+  <main class="teacher-main">
+    <header class="teacher-topbar">
+      <div class="topbar-actions-left">
+        <button type="button" aria-label="Thu gọn menu">☰</button>
+        <button type="button" aria-label="Toàn màn hình">⛶</button>
+      </div>
+      <label class="teacher-search">
+        <span class="sr-only">Tìm kiếm</span>
+        <input type="search" placeholder="Tìm bộ từ, bài tập, lớp...">
+      </label>
+      <div class="topbar-actions-right">
+        <button type="button" aria-label="Chế độ tối">🌙</button>
+        <button type="button" aria-label="Thông báo">🔔</button>
+        <span class="plan-badge">FREE</span>
+        <button class="user-chip" type="button">N <span>Nguyen Anh Tuấn</span></button>
+      </div>
+    </header>
+
+    <section class="teacher-dashboard" id="dashboard">
+      <a class="breadcrumb" href="home.html">⌂ Trang chủ</a>
+      <div class="teacher-welcome">
+        <span class="welcome-avatar"></span>
+        <div>
+          <h1 data-user-name-target="welcome">Chào mừng trở lại, Nguyen Anh Tuấn!</h1>
+          <p>Tổng quan lớp học & nội dung của bạn</p>
+        </div>
+      </div>
+
+      <div class="teacher-stat-grid">
+        <article class="teacher-stat-card">
+          <p>Bộ từ vựng</p>
+          <strong>1</strong>
+          <a href="assignments.html">Quản lý</a>
+          <span>▥</span>
+        </article>
+        <article class="teacher-stat-card">
+          <p>Bài tập</p>
+          <strong id="assignmentCount">0</strong>
+          <a href="classes.html">Quản lý</a>
+          <span>□</span>
+        </article>
+        <article class="teacher-stat-card">
+          <p>Lớp học</p>
+          <strong>1</strong>
+          <a href="#assignments">Quản lý</a>
+          <span>▤</span>
+        </article>
+        <article class="teacher-stat-card">
+          <p>Học viên</p>
+          <strong id="studentCount">0</strong>
+          <a href="assigned-work.html">Quản lý</a>
+          <span>♧</span>
+        </article>
+      </div>
+
+      <section class="teacher-chart-card">
+        <div class="chart-heading">
+          <h2>Lượt nộp bài & điểm trung bình</h2>
+          <span>30 ngày gần nhất</span>
+        </div>
+        <div class="chart-metrics">
+          <div><strong id="submissionCount">0</strong><span>Lượt nộp (30 ngày)</span></div>
+          <div><strong id="givenCount">0</strong><span>Bài đã giao</span></div>
+          <div><strong>1</strong><span>Lớp học</span></div>
+          <div><strong id="studentCountInline">0</strong><span>Học viên</span></div>
+        </div>
+        <div class="fake-chart" aria-label="Biểu đồ lượt nộp bài">
+          <div class="chart-grid-lines"></div>
+          <div class="chart-axis left">
+            <span>2</span><span>2</span><span>1</span><span>1</span><span>1</span><span>0</span>
+          </div>
+          <div class="chart-axis right">
+            <span>100%</span><span>80%</span><span>60%</span><span>40%</span><span>20%</span><span>0%</span>
+          </div>
+          <div class="chart-dates">
+            <span>03/06</span><span>06/06</span><span>09/06</span><span>12/06</span><span>15/06</span><span>18/06</span><span>21/06</span><span>24/06</span><span>27/06</span><span>30/06</span>
+          </div>
+          <div class="chart-legend"><span></span>Lượt nộp <i></i>Điểm TB (%)</div>
+        </div>
+      </section>
+
+      <section class="teacher-content-grid" id="assignments">
+        <div class="dashboard-panel">
+          <div class="manager-heading">
+            <div>
+              <p class="section-kicker">Assignments / Bài tập</p>
+              <h2>Danh sách bài tập</h2>
+            </div>
+            <button class="button primary" type="button" id="newAssignmentButtonSecondary">Tạo bài mới</button>
+          </div>
+          <div id="assignmentList" class="assignment-list"></div>
+        </div>
+
+      </section>
+
+      <section class="teacher-bottom-grid" id="submissions">
+        <div class="dashboard-panel">
+          <div class="panel-link-heading">
+            <h2>Tiến độ học viên</h2>
+            <a href="#submissions">Xem lớp</a>
+          </div>
+          <div class="progress-placeholder">
+            <span>0%</span>
+            <p>Chưa có dữ liệu tiến độ.</p>
+          </div>
+        </div>
+        <div class="dashboard-panel">
+          <h2>Phân loại học lực</h2>
+          <div class="progress-placeholder soft">
+            <span>A</span>
+            <p>Sẽ tự cập nhật khi học sinh nộp bài.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-panel submissions-panel">
+        <p class="section-kicker">Student results / Kết quả học sinh</p>
+        <h2>Bài nộp</h2>
+        <div id="submissionList" class="submission-list"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="auth.js"></script>
+  <script src="topbar.js"></script>
+  <script src="teacher.js"></script>
+</body>
+</html>
